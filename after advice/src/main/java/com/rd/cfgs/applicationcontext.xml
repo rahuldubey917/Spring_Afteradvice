@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+<!-- configure target class -->
+<bean id="approver" class="com.rd.service.OrderApprover"/>
+
+<!-- configure Audit advice class -->
+<bean id="auditadvice" class="com.rd.aspact.AuditingAdvice"/>
+
+<!-- configure proxyFactoryBean -->
+<bean id="pfb" class="org.springframework.aop.framework.ProxyFactoryBean">
+<property name="target" ref="approver"/>
+<property name="interceptorNames">
+<list>
+<value>auditadvice</value>
+</list>
+
+</property>
+
+</bean>
+</beans>
